@@ -2,6 +2,29 @@ CREATE DATABASE Facturacion1;
 
 USE Facturacion1;
 
+CREATE TABLE t_rol (
+    id_rol      int(11) 	NOT NULL,
+    rol         int(11) 	NOT NULL,
+    CONSTRAINT  pk_rol   	PRIMARY KEY(id_rol)
+) ENGINE=InnoDB;
+
+INSERT INTO t_rol (id_rol, rol) VALUES(NULl,"Administrador"),(NULl,"Secretario"),(NULl,"Bodega");
+
+
+
+CREATE TABLE t_usuario (
+    id_usuario    int(11) 		NOT NULL,
+    nombre        varchar(100) 	NOT NULL,
+    apellido      varchar(100) 	NOT NULL,
+    correo        varchar(100) 	NOT NULL,
+    password      varchar(100) 	NOT NULL,
+    id_rol        int(11) 		NOT NULL,
+    CONSTRAINT    pk_usuario    PRIMARY KEY(id_usuario),
+    CONSTRAINT    fk_rol        FOREIGN KEY(id_rol) REFERENCES t_rol(id_rol) 
+
+) ENGINE=InnoDB;
+
+
 CREATE TABLE t_ciudad(
     id_ciudad       int(11)     AUTO_INCREMENT  NOT NULL,
     ciudad          varchar(100),
@@ -39,3 +62,15 @@ CREATE TABLE t_producto(
     CONSTRAINT      fk_unidad    FOREIGN KEY(id_unidad) REFERENCES t_unidad(id_unidad) 
 )ENGINE=InnoDb;
 
+CREATE TABLE t_factura(
+    id_factura      int(11)     AUTO_INCREMENT NOT NULL,
+    id_usuario      int(11),
+    id_cliente      int(11),
+    id_producto     int(11),
+    fecha           date,
+    cantidad        int(10),
+    CONSTRAINT      pk_factura  PRIMARY KEY(id_factura),
+    CONSTRAINT      fk_usuario  FOREIGN KEY(id_usuario)  REFERENCES t_usuario(id_usuario), 
+    CONSTRAINT      fk_cliente  FOREIGN KEY(id_cliente)  REFERENCES t_cliente(id_cliente), 
+    CONSTRAINT      fk_producto FOREIGN KEY(id_producto) REFERENCES t_producto(id_producto) 
+)ENGINE=InnoDb;
