@@ -13,7 +13,7 @@ INSERT INTO t_rol (id_rol, rol) VALUES(NULL,"Administrador"),(NULL,"Secretario")
 
 
 CREATE TABLE t_usuario (
-    id_usuario    int(11) 		NOT NULL,
+    id_usuario    int(11) 		AUTO_INCREMENT NOT NULL,
     nombre        varchar(100) 	NOT NULL,
     apellido      varchar(100) 	NOT NULL,
     correo        varchar(100) 	NOT NULL,
